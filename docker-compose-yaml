@@ -1,0 +1,7 @@
+version
+
+services:
+	laravel-app:
+		build: .
+		ports:
+			- '80:80'
