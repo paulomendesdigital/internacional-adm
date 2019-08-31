@@ -58,7 +58,7 @@ class SiteController extends Controller
 
         Mail::send('mails.contact-us', compact('data'), function($message) use ($data){
 
-            $message->to('internacional@example.com');
+            $message->to(env('MAIL_CONTACT_ADDRESS'));
             $message->subject('[CONTATO] Enviado pelo site - ' . $data['name']);
 
         });
