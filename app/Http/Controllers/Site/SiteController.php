@@ -12,7 +12,7 @@ class SiteController extends Controller
 {
     public function index()
     {
-        $slides = DB::table('slides')->where('status', '1')->get();
+        $slides = DB::table('slides')->get();
 
         return view('site.index', compact('slides'));
     }
