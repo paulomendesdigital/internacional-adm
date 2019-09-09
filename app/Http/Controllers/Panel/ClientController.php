@@ -57,7 +57,9 @@ class ClientController extends Controller
 
         $modalities = $this->getModalitiesOfPlans($plans);
 
-        return view('panel.clients.create-edit', compact('title', 'modalities'));
+        $appUrl = env('APP_URL');
+
+        return view('panel.clients.create-edit', compact('title', 'modalities', 'appUrl'));
     }
 
     /**
@@ -161,7 +163,9 @@ class ClientController extends Controller
 
         $titlePage = "Editar Cliente";
 
-        return view('panel.clients.create-edit', compact('title', 'titlePage', 'client', 'states', 'cities', 'modalities'));
+        $appUrl = env('APP_URL');
+
+        return view('panel.clients.create-edit', compact('title', 'titlePage', 'client', 'states', 'cities', 'modalities', 'appUrl'));
     }
 
     /**

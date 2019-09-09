@@ -56,7 +56,9 @@ class PlanController extends Controller
 
         $ages = Age::orderBy('name')->get();
 
-        return view('panel.plans.create-edit', compact('title', 'modalities', 'operadoras', 'elegibilidades', 'ages'));
+        $appUrl = env('APP_URL');
+
+        return view('panel.plans.create-edit', compact('title', 'modalities', 'operadoras', 'elegibilidades', 'ages', 'appUrl'));
     }
 
     /**
@@ -139,7 +141,9 @@ class PlanController extends Controller
 
             $ages = Age::orderBy('name')->get();
 
-            return view('panel.plans.create-edit', compact('title', 'titlePage', 'plan', 'modalities', 'elegibilidades', 'operadoras', 'ages', 'prices','cities', 'state'));
+            $appUrl = env('APP_URL');
+
+            return view('panel.plans.create-edit', compact('title', 'titlePage', 'plan', 'modalities', 'elegibilidades', 'operadoras', 'ages', 'prices','cities', 'state', 'appUrl'));
         }
     }
 

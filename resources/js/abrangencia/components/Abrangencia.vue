@@ -50,6 +50,7 @@
             'propStateId',
             'propStates',
             'propCities',
+            'propAppUrl'
         ],
         data() {
             return {
@@ -57,7 +58,8 @@
                 states_response: [],
                 state_id: '',
                 cities_response: '',
-                check: ''
+                check: '',
+                app_url: ''
             }
         },
         methods: {
@@ -78,22 +80,27 @@
             getStates() {
                 this.state_id = '';
 
-                window.axios.get('/internacional/public/panel/get-states').then((response) => {
+                window.axios.get(this.app_url + '/panel/get-states').then((response) => {
                     this.states_response = response.data;
                 });
             },
             getCitiesByState() {
-                window.axios.get('/internacional/public/panel/get-cities-by-states/' + this.state_id).then((response) => {
+                window.axios.get(this.app_url + '/panel/get-cities-by-states/' + this.state_id).then((response) => {
                     this.cities_response = response.data;
                 });
             },
             setValues() {
+
+                if (this.propAppUrl) {
+                    this.app_url = this.propAppUrl;
+                }
 
                 this.getStates();
 
                 if (this.propAbrangencia) {
                     this.abrangencia = this.propAbrangencia;
                 }
+
                 if (this.propStateId) {
                     this.state_id = this.propStateId;
                 }

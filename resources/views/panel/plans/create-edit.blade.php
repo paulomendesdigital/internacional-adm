@@ -137,6 +137,8 @@
 
             <div id="app">
                 <abrangencia
+                    prop-app-url="{{ $appUrl }}"
+
                     @if (!empty($plan))
                         prop-abrangencia="{{ $plan->abrangencia }}"
 

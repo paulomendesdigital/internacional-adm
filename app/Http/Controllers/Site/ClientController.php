@@ -31,6 +31,8 @@ class ClientController extends Controller
 
         $plans = Plan::with('modality')->get();
 
+        $appUrl = env('APP_URL');
+
         if (!$plans)
             return redirect('/')->withErrors(['Não temos planos cadastrados no momento. Volte mais tarde.']);
 
@@ -42,7 +44,7 @@ class ClientController extends Controller
 
         }
 
-        return view('site.plans.index', compact('conf', 'modalities'));
+        return view('site.plans.index', compact('conf', 'modalities', 'appUrl'));
     }
 
     public function store(ClientStoreRequest $request) {

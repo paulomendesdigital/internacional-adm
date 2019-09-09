@@ -48,7 +48,7 @@
                                 <i class="fas fa-street-view"></i>
                             </div>
                         </div>
-                        
+
                         <select id="city" name="city_id" class="form-control" @change="changeCity($event)">
                             <option value="">Selecione</option>
                             <option v-for="(name, id) in cities_response" :value="id" >{{ name }}</option>
@@ -80,6 +80,7 @@
             'propStateId',
             'propStates',
             'propCities',
+            'propAppUrl'
         ],
         data() {
             return {
@@ -88,7 +89,8 @@
                 state_id: '',
                 cities_response: '',
                 there_is_city: '',
-                city_id: ''
+                city_id: '',
+                app_url: ''
             }
         },
         methods: {
@@ -101,7 +103,7 @@
                     this.city_id = ''
                 }
             },
-            
+
             changeState(e) {
                 if (e.target.value != '') {
                     this.state_id = e.target.value;
@@ -111,7 +113,7 @@
                     this.city_id = ''
                 }
             },
-            
+
             changeCity(e) {
                 if (e.target.value != '') {
                     this.city_id = e.target.value;
@@ -119,19 +121,19 @@
                     this.city_id = ''
                 }
             },
-            
+
             getStates() {
 
                 this.state_id = '';
 
-                window.axios.get('/internacional/public/get-states-with-plans').then((response) => {
+                window.axios.get(this.app_url + '/get-states-with-plans').then((response) => {
                     this.states_response = response.data;
                 });
-                
+
             },
 
             getCitiesByState() {
-                window.axios.get('/internacional/public/get-cities-by-states-with-plans/' + this.state_id).then((response) => {
+                window.axios.get(this.app_url + '/get-cities-by-states-with-plans/' + this.state_id).then((response) => {
 
                     if ( Object.keys(response.data).length > 0) {
                         this.cities_response = response.data;
@@ -140,7 +142,18 @@
                         this.there_is_city = false;
                     }
                 });
+            },
+
+            setValues() {
+
+                if (this.propAppUrl) {
+                    this.app_url = this.propAppUrl;
+                }
             }
+        },
+
+        mounted() {
+            this.setValues();
         }
     }
 </script>

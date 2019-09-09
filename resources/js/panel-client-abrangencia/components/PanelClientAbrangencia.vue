@@ -56,6 +56,7 @@
             'propCities',
             'propStateId',
             'propCityId',
+            'propAppUrl'
         ],
 
         data() {
@@ -65,7 +66,8 @@
                 cities_response: [],
                 there_is_city: '',
                 state_id: '',
-                city_id: ''
+                city_id: '',
+                app_url: ''
             }
         },
 
@@ -102,7 +104,7 @@
             getStates() {
                 this.state_id = '';
 
-                window.axios.get('/internacional/public/panel/get-states').then((response) => {
+                window.axios.get(this.app_url + '/panel/get-states').then((response) => {
                     this.states_response = response.data;
 
                     console.log(this.states_response);
@@ -110,7 +112,7 @@
             },
 
             getCitiesByState() {
-                window.axios.get('/internacional/public/panel/get-cities-by-states-client/' + this.state_id).then((response) => {
+                window.axios.get(this.app_url + '/panel/get-cities-by-states-client/' + this.state_id).then((response) => {
 
                     if ( Object.keys(response.data).length > 0) {
                         this.cities_response = response.data;
@@ -126,18 +128,26 @@
                 if (this.propAbrangencia) {
                     this.abrangencia = JSON.parse(this.propAbrangencia);
                 }
+
                 if (this.propStates) {
                     this.states_response = JSON.parse(this.propStates);
                 }
+
                 if (this.propCities) {
                     this.cities_response = JSON.parse(this.propCities);
                     this.there_is_city = true;
                 }
+
                 if (this.propStateId) {
                     this.state_id = JSON.parse(this.propStateId);
                 }
+
                 if (this.propCityId) {
                     this.city_id = JSON.parse(this.propCityId);
+                }
+
+                if (this.propAppUrl) {
+                    this.app_url = this.propAppUrl;
                 }
             }
         },

@@ -89,6 +89,9 @@
                 <div class="card-body">
                     <div id="panel-client-abrangencia">
                         <panel-client-abrangencia
+
+                            prop-app-url="{{ $appUrl }}"
+
                             @if (!empty($client))
                                 prop-abrangencia="{{ $client->abrangencia }}"
                                 prop-states="{{ $states }}"

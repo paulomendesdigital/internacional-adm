@@ -69,7 +69,9 @@
                 <hr>
 
                 <div id="site-abrangencia">
-                    <abrangencia>
+                    <abrangencia
+                        prop-app-url="{{ $appUrl }}"
+                    >
                         Carregando...
                     </abrangencia>
                 </div>

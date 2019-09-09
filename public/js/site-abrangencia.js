@@ -85,7 +85,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['propAbrangencia', 'propStateId', 'propStates', 'propCities'],
+  props: ['propAbrangencia', 'propStateId', 'propStates', 'propCities', 'propAppUrl'],
   data: function data() {
     return {
       abrangencia: '',
@@ -93,7 +93,8 @@ __webpack_require__.r(__webpack_exports__);
       state_id: '',
       cities_response: '',
       there_is_city: '',
-      city_id: ''
+      city_id: '',
+      app_url: ''
     };
   },
   methods: {
@@ -127,14 +128,14 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       this.state_id = '';
-      window.axios.get('/internacional/public/get-states-with-plans').then(function (response) {
+      window.axios.get(this.app_url + '/get-states-with-plans').then(function (response) {
         _this.states_response = response.data;
       });
     },
     getCitiesByState: function getCitiesByState() {
       var _this2 = this;
 
-      window.axios.get('/internacional/public/get-cities-by-states-with-plans/' + this.state_id).then(function (response) {
+      window.axios.get(this.app_url + '/get-cities-by-states-with-plans/' + this.state_id).then(function (response) {
         if (Object.keys(response.data).length > 0) {
           _this2.cities_response = response.data;
           _this2.there_is_city = true;
@@ -142,7 +143,15 @@ __webpack_require__.r(__webpack_exports__);
           _this2.there_is_city = false;
         }
       });
+    },
+    setValues: function setValues() {
+      if (this.propAppUrl) {
+        this.app_url = this.propAppUrl;
+      }
     }
+  },
+  mounted: function mounted() {
+    this.setValues();
   }
 });
 

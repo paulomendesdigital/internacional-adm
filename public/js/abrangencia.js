@@ -55,14 +55,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['propAbrangencia', 'propStateId', 'propStates', 'propCities'],
+  props: ['propAbrangencia', 'propStateId', 'propStates', 'propCities', 'propAppUrl'],
   data: function data() {
     return {
       abrangencia: '',
       states_response: [],
       state_id: '',
       cities_response: '',
-      check: ''
+      check: '',
+      app_url: ''
     };
   },
   methods: {
@@ -85,18 +86,22 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       this.state_id = '';
-      window.axios.get('/internacional/public/panel/get-states').then(function (response) {
+      window.axios.get(this.app_url + '/panel/get-states').then(function (response) {
         _this.states_response = response.data;
       });
     },
     getCitiesByState: function getCitiesByState() {
       var _this2 = this;
 
-      window.axios.get('/internacional/public/panel/get-cities-by-states/' + this.state_id).then(function (response) {
+      window.axios.get(this.app_url + '/panel/get-cities-by-states/' + this.state_id).then(function (response) {
         _this2.cities_response = response.data;
       });
     },
     setValues: function setValues() {
+      if (this.propAppUrl) {
+        this.app_url = this.propAppUrl;
+      }
+
       this.getStates();
 
       if (this.propAbrangencia) {
