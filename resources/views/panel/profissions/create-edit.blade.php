@@ -42,7 +42,7 @@
 
                     <div class="form-group">
                         <label for="name" class="col-form-label">Nome</label>
-                        <input id="name" type="text" class="form-control" name="name {{ $errors->has('name') ? 'is-invalid' : '' }}" value="{{$profission->name ?? old('name')}}">
+                        <input id="name" type="text" class="form-control {{ $errors->has('name') ? 'is-invalid' : '' }}" name="name" value="{{$profission->name ?? old('name')}}">
                     </div>
 
                     <button class="btn btn-primary float-right">Enviar</button>
