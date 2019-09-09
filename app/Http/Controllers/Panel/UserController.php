@@ -113,7 +113,7 @@ class UserController extends Controller
                 return redirect()->route('users.create')->withErrors(['A senha e a confirmação da senha devem ser iguais']);
             }
 
-            $data['password'] = bcrypt($data['password'])->withInput()->withErrors('Ocorreu um erro interno. Por favor, tente novamente');
+            $data['password'] = bcrypt($data['password']);
         }
 
         unset($data['confirmPassword']);
