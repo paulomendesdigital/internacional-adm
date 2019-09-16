@@ -83,6 +83,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['propAbrangencia', 'propStateId', 'propStates', 'propCities', 'propAppUrl', 'propAbrangencias'],
   data: function data() {
@@ -662,12 +663,16 @@ var render = function() {
                 }
               }
             },
-            _vm._l(_vm.propAbrangencias, function(abrangencia, id) {
-              return _c("option", { domProps: { value: id } }, [
-                _vm._v(_vm._s(abrangencia))
-              ])
-            }),
-            0
+            [
+              _c("option", { attrs: { value: "" } }, [_vm._v("Selecione")]),
+              _vm._v(" "),
+              _vm._l(_vm.propAbrangencias, function(abrangencia, id) {
+                return _c("option", { domProps: { value: id } }, [
+                  _vm._v(_vm._s(abrangencia))
+                ])
+              })
+            ],
+            2
           )
         ])
       ]),
@@ -765,7 +770,6 @@ var render = function() {
       ]),
       _vm._v(" "),
       _vm.abrangencia === "1" ||
-      !_vm.abrangencia ||
       (_vm.abrangencia === "2" && _vm.state_id != "" && _vm.city_id != "")
         ? _c(
             "button",
@@ -777,7 +781,8 @@ var render = function() {
           )
         : _vm._e(),
       _vm._v(" "),
-      _vm.abrangencia === "2" && (!_vm.state_id || !_vm.city_id)
+      (_vm.abrangencia === "2" && (!_vm.state_id || !_vm.city_id)) ||
+      !_vm.abrangencia
         ? _c("span", { staticClass: "btn btn-light mt-2 float-right" }, [
             _vm._v("\n            Enviar\n        ")
           ])

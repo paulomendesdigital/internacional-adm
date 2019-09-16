@@ -12,6 +12,7 @@
                     </div>
 
                     <select id="abrangencia" name="abrangencia" class="form-control" @change="changeAbrangencia($event)" >
+                        <option value="">Selecione</option>
                         <option v-for="(abrangencia, id) in propAbrangencias" :value="id" >{{ abrangencia }}</option>
                     </select>
                 </div>
@@ -60,11 +61,11 @@
                 </div>
             </div>
 
-            <button type="submit" class="btn btn-primary mt-2 float-right" v-if="abrangencia === '1' || !abrangencia || (abrangencia === '2' && state_id != '' && city_id != '')">
+            <button type="submit" class="btn btn-primary mt-2 float-right" v-if="abrangencia === '1' || (abrangencia === '2' && state_id != '' && city_id != '')">
                 Enviar
             </button>
 
-            <span class="btn btn-light mt-2 float-right" v-if="abrangencia === '2' && (!state_id || !city_id)">
+            <span class="btn btn-light mt-2 float-right" v-if="abrangencia === '2' && (!state_id || !city_id) || !abrangencia">
                 Enviar
             </span>
 
