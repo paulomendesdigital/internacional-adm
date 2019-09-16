@@ -63,6 +63,10 @@ Route::group(['namespace' => 'Panel', 'prefix' => 'panel', 'middleware' => 'auth
 
     Route::get('/clients/export', 'ClientController@export')->name('clients.export');
 
+    Route::get('/clients/delete', 'ClientController@delete')->name('clients.delete');
+
+    Route::get('/clients/confirm-delete', 'ClientController@confirmDelete')->name('clients.confirmDelete');
+
     Route::resource('/clients', 'ClientController');
 
     Route::resource('/modalities', 'ModalityController');

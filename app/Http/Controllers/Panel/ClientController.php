@@ -10,6 +10,7 @@ use App\Models\Panel\Plan;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\ClientExport;
 use DateTime;
+use Illuminate\Support\Facades\DB;
 
 // use App\Http\Requests\Panel\ClientFormRequest;
 
@@ -134,9 +135,9 @@ class ClientController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Client $client)
+    public function show()
     {
-        return view('panel.clients.show', compact('client'));
+        //
     }
 
     /**
@@ -197,22 +198,25 @@ class ClientController extends Controller
             return redirect()->route('clients.edit', $id)->withInput()->withErrors('Ocorreu um erro interno. Por favor, tente novamente');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Client $client)
+    public function delete()
     {
-        $delete = $client->delete();
+        return view('panel.clients.delete');
+    }
+
+    public function confirmDelete()
+    {
+        $delete = DB::table('clients')->delete();
 
         if ($delete)
-            return redirect()->route('clients.index')->withSuccess('Cliente deletado com sucesso');
+            return redirect()->route('clients.index')->withSuccess('Clientes deletados com sucesso');
 
-        else
-            return redirect()->route('client.index')->with(['errors' => 'Falha ao deletar']);
+        return redirect()->route('client.index')->with(['errors' => 'Falha ao deletar']);
 
+    }
+
+    public function destroy(Client $client)
+    {
+        //
     }
 
     private function getModalitiesOfPlans($plans)

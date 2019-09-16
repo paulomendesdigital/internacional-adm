@@ -40,7 +40,11 @@
                             <i class="fas fa-plus"></i> Cadastrar
                         </!-->
 
-                        <a href="{{ route('clients.export') }}" class="btn btn-xs btn-primary float-right">
+                        <a href="{{ route('clients.delete') }}" class="btn btn-xs btn-danger float-right">
+                            <i class="fas fa-trash"></i>
+                        </a>
+
+                        <a href="{{ route('clients.export') }}" class="btn btn-xs btn-primary float-right mr-2">
                             <i class="fas fa-file-excel"></i> Exportar
                         </a>
                     </div>

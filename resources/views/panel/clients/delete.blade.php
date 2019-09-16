@@ -13,7 +13,7 @@
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{url('/panel')}}" class="breadcrumb-link">Dashboard</a></li>
                         <li class="breadcrumb-item"><a href="{{route('clients.index')}}" class="breadcrumb-link">Clientes</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Deletar Cliente</li>
+                        <li class="breadcrumb-item active" aria-current="page">Deletar Clientes</li>
                     </ol>
                 </nav>
             </div>
@@ -30,11 +30,10 @@
             <h5 class="card-header">Confirma a exclusão?</h5>
             <div class="card-body">
                 <a href="{{route('clients.index')}}" class="btn btn-primary mr-3 float-left"><i class="fas fa-arrow-left"></i> Cancelar</a>
-                <form class="float-left" method="post" action="{{route('clients.destroy', $client->id)}}" enctype="multipart/form-data">
-                    {!! method_field('DELETE') !!}
-                    {!! csrf_field() !!}
-                    <button class="btn btn-danger"><i class="fas fa-trash"></i> Deletar</button>
-                </form>
+
+                <a class="float-left btn btn-danger" href="{{ route('clients.confirmDelete') }}">
+                    <i class="fas fa-trash"></i> Deletar
+                </a>
             </div>
         </div>
     </div>
