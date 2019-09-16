@@ -31,6 +31,18 @@ class ClientController extends Controller
 
         $plans = Plan::with('modality')->get();
 
+        $abrangencias = [];
+
+        foreach ($plans as $plan) {
+            $abrangencias[$plan->abrangencia] = 'Nacional';
+
+            if ($plan->abrangencia == 2) {
+                $abrangencias[$plan->abrangencia] = 'Regional';
+            }
+        }
+
+        $abrangencias = json_encode($abrangencias);
+
         $appUrl = env('APP_URL');
 
         if (!$plans)
@@ -44,7 +56,7 @@ class ClientController extends Controller
 
         }
 
-        return view('site.plans.index', compact('conf', 'modalities', 'appUrl'));
+        return view('site.plans.index', compact('conf', 'modalities', 'appUrl', 'abrangencias'));
     }
 
     public function store(ClientStoreRequest $request) {

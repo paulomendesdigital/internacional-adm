@@ -83,9 +83,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['propAbrangencia', 'propStateId', 'propStates', 'propCities', 'propAppUrl'],
+  props: ['propAbrangencia', 'propStateId', 'propStates', 'propCities', 'propAppUrl', 'propAbrangencias'],
   data: function data() {
     return {
       abrangencia: '',
@@ -148,6 +147,8 @@ __webpack_require__.r(__webpack_exports__);
       if (this.propAppUrl) {
         this.app_url = this.propAppUrl;
       }
+
+      this.propAbrangencias = JSON.parse(this.propAbrangencias);
     }
   },
   mounted: function mounted() {
@@ -661,11 +662,12 @@ var render = function() {
                 }
               }
             },
-            [
-              _c("option", { attrs: { value: "1" } }, [_vm._v("Nacional")]),
-              _vm._v(" "),
-              _c("option", { attrs: { value: "2" } }, [_vm._v("Regional")])
-            ]
+            _vm._l(_vm.propAbrangencias, function(abrangencia, id) {
+              return _c("option", { domProps: { value: id } }, [
+                _vm._v(_vm._s(abrangencia))
+              ])
+            }),
+            0
           )
         ])
       ]),

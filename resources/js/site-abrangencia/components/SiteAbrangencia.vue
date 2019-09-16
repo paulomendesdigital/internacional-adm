@@ -12,8 +12,7 @@
                     </div>
 
                     <select id="abrangencia" name="abrangencia" class="form-control" @change="changeAbrangencia($event)" >
-                        <option value="1">Nacional</option>
-                        <option value="2">Regional</option>
+                        <option v-for="(abrangencia, id) in propAbrangencias" :value="id" >{{ abrangencia }}</option>
                     </select>
                 </div>
             </div>
@@ -80,7 +79,8 @@
             'propStateId',
             'propStates',
             'propCities',
-            'propAppUrl'
+            'propAppUrl',
+            'propAbrangencias'
         ],
         data() {
             return {
@@ -149,6 +149,8 @@
                 if (this.propAppUrl) {
                     this.app_url = this.propAppUrl;
                 }
+
+                this.propAbrangencias = JSON.parse(this.propAbrangencias);
             }
         },
 

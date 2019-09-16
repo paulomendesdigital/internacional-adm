@@ -71,6 +71,7 @@
                 <div id="site-abrangencia">
                     <abrangencia
                         prop-app-url="{{ $appUrl }}"
+                        prop-abrangencias="{{ $abrangencias }}"
                     >
                         Carregando...
                     </abrangencia>
