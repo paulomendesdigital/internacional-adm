@@ -236,36 +236,50 @@ class ClientController extends Controller
 
     private function getPlansForClient($client)
     {
-        $elegibilidade = $this->getElegibilidadeFromClient($client);
+        $elegibilidades = $this->getElegibilidadeFromClient($client);
 
         if ($client->abrangencia == '1') {
 
-            if (!empty($elegibilidade)) {
-                $plans = Plan::with('operadora', 'ages')
+            if ($elegibilidades->count()) {
+                $i = 0;
+
+                foreach ($elegibilidades as $elegibilidade) {
+                    $plans[$i] = Plan::with('operadora', 'ages')
                             ->where('modality_id', $client->modality_id)
                             ->where('elegibilidade_id', $elegibilidade->id)
                             ->where('abrangencia', $client->abrangencia)
                             ->get();
+
+                    $i++;
+                }
+
             } else {
-                $plans = Plan::with('operadora', 'ages')
+                $plans[0] = Plan::with('operadora', 'ages')
                             ->where('modality_id', $client->modality_id)
                             ->where('abrangencia', $client->abrangencia)
                             ->get();
             }
         } else {
 
-            if (!empty($elegibilidade)) {
-                $plans = Plan::with(['operadora', 'ages'])
-                            ->where('modality_id', $client->modality_id)
-                            ->where('elegibilidade_id', $elegibilidade->id)
-                            ->where('abrangencia', $client->abrangencia)
-                            ->where('state_id', $client->state_id)
-                            ->whereHas('cities', function ($query) use ($client) {
-                                $query->where('city_id', $client->city_id);
-                            })
-                            ->get();
+            if ($elegibilidades->count()) {
+
+                $i = 0;
+
+                foreach ($elegibilidades as $elegibilidade) {
+                    $plans[$i] = Plan::with(['operadora', 'ages'])
+                                ->where('modality_id', $client->modality_id)
+                                ->where('elegibilidade_id', $elegibilidade->id)
+                                ->where('abrangencia', $client->abrangencia)
+                                ->where('state_id', $client->state_id)
+                                ->whereHas('cities', function ($query) use ($client) {
+                                    $query->where('city_id', $client->city_id);
+                                })
+                                ->get();
+
+                    $i++;
+                }
             } else {
-                $plans = Plan::with(['operadora', 'ages'])
+                $plans[0] = Plan::with(['operadora', 'ages'])
                             ->where('modality_id', $client->modality_id)
                             ->where('abrangencia', $client->abrangencia)
                             ->where('state_id', $client->state_id)
@@ -276,20 +290,35 @@ class ClientController extends Controller
             }
         }
 
+        $plans = $this->getPlansFromInside($plans);
+
         return $plans;
     }
 
     private function getElegibilidadeFromClient($client)
     {
-        $elegibilidade = '';
+        $elegibilidades = '';
 
         if (!empty($client->profission_id)) {
             $profission = Profission::with('elegibilidades')->where('id', $client->profission_id)->get()->first();
 
-            $elegibilidade = $profission->elegibilidades[0];
+            $elegibilidades = $profission->elegibilidades;
         }
 
-        return $elegibilidade;
+        return $elegibilidades;
+    }
+
+    private function getPlansFromInside($plans)
+    {
+        $plansOut = [];
+
+        foreach ($plans as $plan) {
+            foreach ($plan as $p) {
+                $plansOut[] = $p;
+            }
+        }
+
+        return $plansOut;
     }
 
     private function getOperadorasFromPlans($plans)
