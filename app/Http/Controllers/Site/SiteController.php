@@ -13,8 +13,9 @@ class SiteController extends Controller
     public function index()
     {
         $slides = DB::table('slides')->get();
+        $conf = DB::table('configurations')->first();
 
-        return view('site.index', compact('slides'));
+        return view('site.index', compact('slides', 'conf'));
     }
 
     public function aboutUs()
