@@ -402,7 +402,7 @@ p.subtitle{
 
 @media (min-width: 768px){
     .block{
-        width: 208px;
+        width: 212px;
         float: left;
         margin-right: 30px;
     }
@@ -418,7 +418,7 @@ p.subtitle{
         top: -40px;
         left: 50%;
         transform: translateX(-50%);
-        min-width: 718px;
+        min-width: 726px;
     }
 
     #main-menu .btn-menu{
