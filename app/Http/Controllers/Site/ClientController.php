@@ -252,7 +252,7 @@ class ClientController extends Controller
 
         if ($client->abrangencia == '1') {
 
-            if ($elegibilidades->count()) {
+            if (!empty($elegibilidades) && $elegibilidades->count()) {
                 $i = 0;
 
                 foreach ($elegibilidades as $elegibilidade) {
@@ -273,7 +273,7 @@ class ClientController extends Controller
             }
         } else {
 
-            if ($elegibilidades->count()) {
+            if (!empty($elegibilidades) && $elegibilidades->count()) {
 
                 $i = 0;
 
