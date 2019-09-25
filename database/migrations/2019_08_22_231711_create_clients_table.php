@@ -31,7 +31,7 @@ class CreateClientsTable extends Migration
             $table->string('name', 100);
             $table->string('phone', 17)->nullable();
 
-            $table->string('email')->nullable()->unique();
+            $table->string('email')->nullable();
             $table->date('birth')->nullable();
 
             $table->integer('abrangencia');
