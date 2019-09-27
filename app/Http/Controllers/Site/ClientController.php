@@ -125,6 +125,12 @@ class ClientController extends Controller
                 unset($data['dependents']);
         }
 
+        if (empty($data['dependents']))
+            return redirect()->back()->withInput()->withErrors(['É necessário colocar mais um data de nascimento para o funcionário']);
+
+        if (count($data['dependents']) > 28)
+            return redirect()->back()->withInput()->withErrors(['Solicite orçamento para até para 29 pessoas no total']);
+
         // --- END VERIFICATION ---
 
 
