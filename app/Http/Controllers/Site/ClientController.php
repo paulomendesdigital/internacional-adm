@@ -107,7 +107,7 @@ class ClientController extends Controller
 
         $id = base64_decode($data['id']);
 
-        $client = $this->client::with('state', 'city')->where('id', $id)->get()->first();
+        $client = $this->client::with('state', 'city', 'modality')->where('id', $id)->get()->first();
 
         if (!$client)
             return redirect('/planos')->withErrors(['Os dados informados não constam em nosso sistema']);
@@ -125,11 +125,13 @@ class ClientController extends Controller
                 unset($data['dependents']);
         }
 
-        if (empty($data['dependents']))
-            return redirect()->back()->withInput()->withErrors(['É necessário colocar mais uma data de nascimento para o funcionário']);
+        if ($client->modality->pj == 1) {
+            if (empty($data['dependents']))
+                return redirect()->back()->withInput()->withErrors(['É necessário colocar mais uma data de nascimento para o funcionário']);
 
-        if (count($data['dependents']) > 28)
-            return redirect()->back()->withInput()->withErrors(['Solicite orçamento para até para 29 pessoas no total']);
+            if (count($data['dependents']) > 28)
+                return redirect()->back()->withInput()->withErrors(['Solicite orçamento para até para 29 pessoas no total']);
+        }
 
         // --- END VERIFICATION ---
 
